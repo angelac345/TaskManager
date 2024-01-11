@@ -3,17 +3,30 @@ function addTask() {
     const taskDeadline = document.getElementById('task-input-deadline');
     const taskTimeEstimate = document.getElementById('task-input-estimated-time');
 
-    const taskList = document.getElementById('task-list');
-
     if (taskName.value !== '') {
         // Create a new list item
-        const newTask = document.createElement('li');
-        newTask.textContent = taskName.value + ", " + taskDeadline.value + ", " + taskTimeEstimate.value;
+        // const newTask = document.createElement('li');
+        // newTask.textContent = taskName.value + ", " + taskDeadline.value + ", " + taskTimeEstimate.value;
 
-        // Add the new task to the list
-        taskList.appendChild(newTask);
+        // // Add the new task to the list
+        // taskList.appendChild(newTask);
+        createNewTaskEntry(taskName.value, taskDeadline.value, taskTimeEstimate.value);  
 
         // Clear the input field
-        taskInput.value = '';
+        taskName.value = '';
+        taskDeadline.value = '';
+        taskTimeEstimate.value = '';
     }
+}
+
+function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate) {
+    const taskList = document.getElementById('task-list');
+    const newTask = document.createElement('li');
+
+
+    newTask.textContent = taskName + ", " + taskDeadline + ", " + taskTimeEstimate;
+
+    // Add the new task to the list
+    taskList.appendChild(newTask);
+
 }
