@@ -12,7 +12,7 @@ header {
 }
 
 #task-section {
-    max-width: 600px;
+    max-width: 70%;
     margin: 20px auto;
 }
 
@@ -25,8 +25,16 @@ header {
     flex: 1;
     padding: 8px;
 }
+.task-input {
+    padding: 8px; 
+    margin-left: 10px; 
+    margin-right: 10px; 
+
+    flex: 1; 
+}
 
 button {
+    margin-left: 10px; 
     background-color: #2ecc71;
     color: #fff;
     border: none;
