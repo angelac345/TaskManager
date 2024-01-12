@@ -1,3 +1,18 @@
+
+counter = 0; 
+
+// const fs = require('fs');
+// const jsonFileContents = fs.readFileSync('output.json', 'utf-8');
+// const jsonData = JSON.parse(jsonFileContents);
+
+// Retrieve data from localStorage
+let json_str = localStorage.getItem('json_data');
+let json_data = JSON.parse(json_str);
+if (json_data == null) {
+    json_data = []; 
+}
+console.log(json_data);
+
 function addTask() {
     const taskName = document.getElementById('task-input');
     const taskDeadline = document.getElementById('task-input-deadline');
@@ -51,4 +66,21 @@ function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate) {
 
     taskList.appendChild(taskItem);
     
+    json_data.push({
+        title: taskName, 
+        detail: taskDeadline, 
+        time_estimate: taskTimeEstimate
+    }); 
+    json_str = JSON.stringify(json_data); 
+
 }
+
+
+function onPageExitOrRefresh(event) {
+    // Your code here
+    json_str = JSON.stringify(json_data); 
+    localStorage.setItem("json_data", json_str); 
+}
+
+// Attach the function to the beforeunload event
+window.addEventListener('beforeunload', onPageExitOrRefresh);
