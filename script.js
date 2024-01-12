@@ -61,7 +61,6 @@ function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate, isNewEntry
             detail: taskDeadline, 
             time_estimate: taskTimeEstimate
         }); 
-        json_str = JSON.stringify(json_data); 
     }
 }
 
@@ -69,7 +68,7 @@ function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate, isNewEntry
 // When page is reloading or exiting, store the data as json string
 
 function onPageExitOrRefresh(event) {
-    json_str = JSON.stringify(json_data); 
+    let json_str = JSON.stringify(json_data); 
     localStorage.setItem("json_data", json_str); 
 }
 
@@ -77,7 +76,6 @@ window.addEventListener('beforeunload', onPageExitOrRefresh);
 
 // When page is first loaded, show the stored data as entries on the page
 function onPageLoad() {
-    console.log('here1');
     let json_str = localStorage.getItem('json_data');
 
     json_data = JSON.parse(json_str);
@@ -87,9 +85,19 @@ function onPageLoad() {
     console.log(json_data);
 
     for (const entry of json_data) {
-        console.log(entry['title']);
         createNewTaskEntry(entry['title'], entry['detail'], entry['time_estimate'], false); 
     }
 }
 
 window.onload = onPageLoad; 
+
+// reset data when clicked on the footer 
+function resetData() {
+    json_data = []; 
+    let json_str = JSON.stringify(json_data); 
+    localStorage.setItem("json_data", json_str); 
+
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+
+}
