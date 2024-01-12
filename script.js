@@ -1,17 +1,6 @@
 
 counter = 0; 
-
-// const fs = require('fs');
-// const jsonFileContents = fs.readFileSync('output.json', 'utf-8');
-// const jsonData = JSON.parse(jsonFileContents);
-
-// Retrieve data from localStorage
 let json_data; 
-// json_data = JSON.parse(json_str);
-// if (json_data == null) {
-//     json_data = []; 
-// }
-// console.log(json_data);
 
 function addTask() {
     const taskName = document.getElementById('task-input');
