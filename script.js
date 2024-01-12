@@ -6,12 +6,12 @@ counter = 0;
 // const jsonData = JSON.parse(jsonFileContents);
 
 // Retrieve data from localStorage
-let json_str = localStorage.getItem('json_data');
-let json_data = JSON.parse(json_str);
-if (json_data == null) {
-    json_data = []; 
-}
-console.log(json_data);
+let json_data; 
+// json_data = JSON.parse(json_str);
+// if (json_data == null) {
+//     json_data = []; 
+// }
+// console.log(json_data);
 
 function addTask() {
     const taskName = document.getElementById('task-input');
@@ -20,7 +20,7 @@ function addTask() {
 
     if (taskName.value !== '') {
         // Create a new list item
-        createNewTaskEntry(taskName.value, taskDeadline.value, taskTimeEstimate.value);  
+        createNewTaskEntry(taskName.value, taskDeadline.value, taskTimeEstimate.value, true);  
 
         // Clear the input field
         taskName.value = '';
@@ -29,7 +29,7 @@ function addTask() {
     }
 }
 
-function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate) {
+function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate, isNewEntry) {
     const taskList = document.getElementById('task-list');
     // const newTask = document.createElement('div'); 
     // Create the hbox container
@@ -66,21 +66,41 @@ function createNewTaskEntry(taskName, taskDeadline, taskTimeEstimate) {
 
     taskList.appendChild(taskItem);
     
-    json_data.push({
-        title: taskName, 
-        detail: taskDeadline, 
-        time_estimate: taskTimeEstimate
-    }); 
-    json_str = JSON.stringify(json_data); 
-
+    if (isNewEntry){
+        json_data.push({
+            title: taskName, 
+            detail: taskDeadline, 
+            time_estimate: taskTimeEstimate
+        }); 
+        json_str = JSON.stringify(json_data); 
+    }
 }
 
 
+// When page is reloading or exiting, store the data as json string
+
 function onPageExitOrRefresh(event) {
-    // Your code here
     json_str = JSON.stringify(json_data); 
     localStorage.setItem("json_data", json_str); 
 }
 
-// Attach the function to the beforeunload event
 window.addEventListener('beforeunload', onPageExitOrRefresh);
+
+// When page is first loaded, show the stored data as entries on the page
+function onPageLoad() {
+    console.log('here1');
+    let json_str = localStorage.getItem('json_data');
+
+    json_data = JSON.parse(json_str);
+    if (json_data == null) {
+        json_data = []; 
+    }
+    console.log(json_data);
+
+    for (const entry of json_data) {
+        console.log(entry['title']);
+        createNewTaskEntry(entry['title'], entry['detail'], entry['time_estimate'], false); 
+    }
+}
+
+window.onload = onPageLoad; 
