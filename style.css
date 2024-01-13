@@ -54,20 +54,38 @@ button {
 }
 
 /* task list  */
-.task-item {
-    display: flex;
-    flex-direction: column;
+.task-item-large {
+    display: flex; 
     margin: 5px 10%; 
+}
 
-    border-bottom: 2px solid #b8bbbc; 
-    padding: 10px;
-
+.task-top-box {
+    display: flex; 
+    width: 100%; 
 }
 
 .task-title {
     flex: 1;
     padding: 10px;
 }
+
+.del-button {
+    margin-left: 0; 
+    background-color: #21cbd7;
+
+    margin-bottom: 5px;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 2px solid #b8bbbc; 
+    padding: 10px;
+    width: 100%;
+
+}
+
 
 .task-detail {
     background-color: #e0e0e0;
